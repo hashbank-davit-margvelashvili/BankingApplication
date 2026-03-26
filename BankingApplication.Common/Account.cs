@@ -20,7 +20,7 @@ public class Account
     public void Debit(decimal amount)
     {
         if (amount > Balance)
-            return;
+            throw new Exception("Insufficient funds");
 
         Balance -= amount;
     }
