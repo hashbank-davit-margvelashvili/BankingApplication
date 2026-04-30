@@ -6,7 +6,7 @@ public class Account
 
     public int Id { get; private set; }
     public string AccountNumber { get; set; }
-    public decimal Balance { get; private set; }
+    public decimal Balance { get; set; }
     public string Currency { get; private set; }
     public bool IsActive { get; private set; }
 
@@ -15,6 +15,20 @@ public class Account
         Id = _nextId;
         _nextId += 1;
         Currency = "GEL";
+    }
+
+    public Account Clone()
+    {
+        var copy = new Account
+        {
+            AccountNumber = AccountNumber,
+            Currency = Currency,
+            Id = Id,
+            Balance = Balance,
+            IsActive = IsActive
+        };
+
+        return copy;
     }
 
     public void Debit(decimal amount)
