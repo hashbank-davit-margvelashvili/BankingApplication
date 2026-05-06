@@ -1,6 +1,6 @@
 ﻿namespace BankingApplication.Common.Tests;
 
-public class FinancialProductTests
+public class FinancialProductTests : Object
 {
     [Fact]
     public void FinancialProductCreate()
@@ -37,6 +37,7 @@ public class FinancialProductTests
     public void Print(FinancialProduct product)
     {
         var text = product.Display();
+
         Console.WriteLine(text);
     }
 

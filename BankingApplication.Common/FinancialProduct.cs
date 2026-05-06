@@ -28,7 +28,7 @@ public class DepositAccount : FinancialProduct
         var baseText = base.Display();
         return baseText + $" Interest Rate: {InterestRate}, Maturity Date: {MaturityDate}";
 
-        DataReader reader = new FileDataReader("D:\\Apps\\POC\\BankingApplication\\BankingApplication.Common.Tests\\FinancialProductTests.cs");
+        IDataReader reader = new FileDataService("D:\\Apps\\POC\\BankingApplication\\BankingApplication.Common.Tests\\FinancialProductTests.cs");
     }
 }
 
@@ -43,30 +43,32 @@ public class LoanAccount : FinancialProduct
     }
 }
 
-public abstract class DataReader
+public interface IDataReader
 {
-    public abstract byte[] ReadData();
+    public byte[] ReadData();
 }
 
-public class FileDataReader : DataReader
+public interface IDataWriter
+{
+    public void WriteData(byte[] data);
+}
+
+public class FileDataService : IDataReader, IDataWriter
 {
     private string _path;
 
-    public FileDataReader(string path)
+    public FileDataService(string path)
     {
         _path = path;
     }
 
-    public override byte[] ReadData()
+    public byte[] ReadData()
     {
         return File.ReadAllBytes(_path);
     }
-}
 
-public class NetworkDataReader : DataReader
-{
-    public override byte[] ReadData()
+    public void WriteData(byte[] data)
     {
-        throw new NotImplementedException();
+        File.WriteAllBytes(_path, data);
     }
 }
